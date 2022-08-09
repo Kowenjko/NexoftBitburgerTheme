@@ -1,0 +1,271 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/index.html.twig' %}
+
+{% block base_content %}
+    {% block page_product_detail %}
+
+        <style>
+            .product-detail {
+                margin: 50px 0;
+            }
+
+            .product-detail-tabs {
+                margin-top: 50px;
+            }
+
+            .product-detail-tabs-content {
+                background-color: #F7F7F7;
+                padding: 70px 50px !important;
+                margin-bottom: 50px;
+                font-size: 18px;
+            }
+
+            .product-detail-tabs .nav-item {
+                flex-grow: 1;
+                text-align: center;
+            }
+
+            .product-detail-tab-navigation-list {
+                display: flex;
+                align-items: stretch;
+            }
+
+            .card-tabs .nav-link  {
+
+                font-size: 28px;
+                border-bottom-color: white;
+
+                color: #666666 !important;
+            }
+
+            .card-tabs .nav-link:hover {
+                background-color: rgba(0,0,0,0.01) !important;
+            }
+
+            .card-tabs .nav-link.active  {
+                color: black !important;
+                border-bottom-color: #323235;
+            }
+
+
+            .product-detail-tagline {
+                flex-grow: 1;
+                font-weight: bold;
+                padding-bottom: 10px;
+                font-size: 20px;
+            }
+
+            .product-detail-tab-preview {
+                font-size: 15px;
+                text-align: left;
+            }
+
+            .properties-label {
+                text-transform: uppercase;
+                font-size: 16px;
+                text-align: right;
+            }
+
+            .properties-value span {
+                font-size: 16px;
+                background-color: #F7F7F7;
+                border-radius: 4px;
+                margin-right: 10px;
+                padding: 10px;
+            }
+
+            @media only screen and (min-width: 768px) {
+                .product-detail-description {
+                    display: flex;
+                }
+
+                .card-tabs .nav-link  {
+                    padding: 10px 40px;
+                }
+                .product-detail-tagline {
+                    font-size: 28px;
+                    padding-right: 50px;
+
+                }
+            }
+
+            .taste-profile-label {
+                text-transform: uppercase;
+                font-weight: bold;
+                margin-right: 20px;
+            }
+            .circle {
+                width: 36.4px;
+                height: 36.4px;
+                border-radius: 100%;
+            }
+
+            .filled {
+                background: #CF9855;
+            }
+
+            .hollow {
+                border: 1px solid #323235;
+            }
+            .taste-profile-item {
+                margin-bottom: 15px;
+            }
+            .taste-profile-rating {
+                margin-right: 20px;
+            }
+
+            @media only screen and (min-width: 768px) {
+                .taste-profile-label {
+                    text-align: right;
+                }
+            }
+        </style>
+        <div class="product-detail"
+             itemscope
+             itemtype="https://schema.org/Product">
+            {% block page_product_detail_inner %}
+                {% block page_product_detail_content %}
+                    <div class="product-detail-content">
+                        {% set mediaItems = page.product.media.media %}
+
+                        {% block page_product_detail_main %}
+                            <div class="row product-detail-main">
+                                {% block page_product_detail_media %}
+                                    <div class="col-lg-7 product-detail-media">
+                                        {% if page.product.media %}
+                                            {% sw_include '@Storefront/storefront/element/cms-element-image-gallery.html.twig' with {
+                                                'mediaItems': mediaItems,
+                                                'zoom': true,
+                                                'zoomModal': true,
+                                                'displayMode': 'contain',
+                                                'gutter': 5,
+                                                'minHeight': '430px',
+                                                'navigationArrows': 'inside',
+                                                'navigationDots': 'inside',
+                                                'galleryPosition': 'left',
+                                                'isProduct': true,
+                                                'fallbackImageTitle': page.product.translated.name,
+                                                'startIndexThumbnails': 1,
+                                                'startIndexSlider': 1,
+                                                'keepAspectRatioOnZoom': false
+                                            } %}
+                                        {% endif %}
+                                    </div>
+                                {% endblock %}
+
+                                {% block page_product_detail_buy %}
+                                    <div class="col-lg-5 product-detail-buy">
+                                        {% block page_product_detail_headline %}
+                                            <div class="row align-items-center product-detail-headline">
+                                                {% sw_include '@Storefront/storefront/page/product-detail/headline.html.twig' %}
+                                            </div>
+                                        {% endblock %}
+                                        {% sw_include '@Storefront/storefront/page/product-detail/buy-widget.html.twig' %}
+                                    </div>
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                {% block page_product_detail_tabs %}
+                    <div class="product-detail-tabs">
+                        {% sw_include '@Storefront/storefront/page/product-detail/tabs.html.twig' %}
+                    </div>
+                {% endblock %}
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="taste-profile-table">
+                            <div class="taste-profile-item row">
+                                <div class="taste-profile-label col-12 col-md-4 pt-2">Helligkeit</div>
+                                <div class="col-7 d-flex">
+                                    {% for i in 1..page.product.translated.customFields.custom_geschmacksprofil_farbe %}
+                                    <div class="taste-profile-rating" v-for="rating in getRating(item.value)">
+                                        <div v-if="rating.value" class="circle filled"></div>
+                                    </div>
+                                    {% endfor %}
+                                    {% if page.product.translated.customFields.custom_geschmacksprofil_farbe < 5 %}
+                                    {% for i in 1..(5 - page.product.translated.customFields.custom_geschmacksprofil_farbe) %}
+                                        <div class="taste-profile-rating" v-for="rating in getRating(item.value)">
+                                            <div v-else class="circle hollow"></div>
+                                        </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="taste-profile-item row">
+                                <div class="taste-profile-label col-12 col-md-4 pt-2">Malzig</div>
+                                <div class="col-7 d-flex">
+                                    {% for i in 1..page.product.translated.customFields.custom_geschmacksprofil_malz %}
+                                        <div class="taste-profile-rating" v-for="rating in getRating(item.value)">
+                                            <div v-if="rating.value" class="circle filled"></div>
+                                        </div>
+                                    {% endfor %}
+                                    {% if page.product.translated.customFields.custom_geschmacksprofil_malz < 5 %}
+                                    {% for i in 1..(5 - page.product.translated.customFields.custom_geschmacksprofil_malz) %}
+                                        <div class="taste-profile-rating" v-for="rating in getRating(item.value)">
+                                            <div v-else class="circle hollow"></div>
+                                        </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="taste-profile-item row">
+                                <div class="taste-profile-label col-12 col-md-4 pt-2">Hopfig</div>
+                                <div class="col-7 d-flex">
+                                    {% for i in 1..page.product.translated.customFields.custom_geschmacksprofil_hopfen %}
+                                        <div class="taste-profile-rating" v-for="rating in getRating(item.value)">
+                                            <div v-if="rating.value" class="circle filled"></div>
+                                        </div>
+                                    {% endfor %}
+                                    {% if page.product.translated.customFields.custom_geschmacksprofil_hopfen < 5 %}
+                                    {% for i in 1..(5 - page.product.translated.customFields.custom_geschmacksprofil_hopfen) %}
+                                        <div class="taste-profile-rating" v-for="rating in getRating(item.value)">
+                                            <div v-else class="circle hollow"></div>
+                                        </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="taste-profile-item row">
+                                <div class="taste-profile-label col-12 col-md-4 pt-2">Fruchtig</div>
+                                <div class="col-7 d-flex">
+                                    {% for i in 1..page.product.translated.customFields.custom_geschmacksprofil_frucht %}
+                                        <div class="taste-profile-rating" v-for="rating in getRating(item.value)">
+                                            <div v-if="rating.value" class="circle filled"></div>
+                                            <!-- <div v-else class="circle hollow"></div> -->
+                                        </div>
+                                    {% endfor %}
+                                    {% if page.product.translated.customFields.custom_geschmacksprofil_frucht < 5 %}
+                                    {% for i in 1..(5 - page.product.translated.customFields.custom_geschmacksprofil_frucht) %}
+                                        <div class="taste-profile-rating" v-for="rating in getRating(item.value)">
+                                            <div v-else class="circle hollow"></div>
+                                        </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        {% block page_product_detail_description_content_properties %}
+                            {% if page.product.sortedProperties|length > 0 %}
+                                {% sw_include '@Storefront/storefront/page/product-detail/properties.html.twig' %}
+                            {% endif %}
+                        {% endblock %}
+                    </div>
+                </div>
+
+
+                {% block page_product_detail_cross_selling %}
+                    {% if page.crossSellings.elements is defined and page.crossSellings.elements|filter(item => item.total > 0)|length > 0 %}
+                        <div class="product-detail-tabs product-detail-cross-selling">
+                            {% sw_include '@Storefront/storefront/page/product-detail/cross-selling/tabs.html.twig' with {
+                                crossSellings: page.crossSellings
+                            } %}
+                        </div>
+                    {% endif %}
+                {% endblock %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% sw_extends '@Storefront/storefront/section/cms-section-default.html.twig' %}
+
+{% block page_content_section_default %}
+	{% set layout = section.sizingMode ? section.sizingMode|replace({"_": "-"}) : "container" %}
+
+	<style>
+		.cms-block-container-row .col-md-4 .image-text-gallery-card {
+			cursor: pointer;
+			height: 100%;
+			box-shadow: 0 0 0 0 rgb(0 0 0 / 20%);
+			border-radius: 10px;
+			overflow: hidden;
+			transition: all 0.5s ease;
+		}
+
+		.cms-block-container-row .col-md-4 .image-text-gallery-card h3 {
+			text-transform: none;
+		}
+
+		.cms-block-container .col-md-4:hover .image-text-gallery-card {
+			box-shadow: 0 6px 40px -8px rgba(0, 0, 0, 0.25);
+			transform: translate3d(-3px, -3px, 3px);
+		}
+	</style>
+	<div class="cms-section-default {{ layout }}">
+		{% for block in section.blocks %}
+
+			{% block section_default_content_block %}
+				{% sw_include "@Storefront/storefront/section/cms-section-block-container.html.twig" %}
+			{% endblock %}
+		{% endfor %}
+	</div>
+{% endblock %}

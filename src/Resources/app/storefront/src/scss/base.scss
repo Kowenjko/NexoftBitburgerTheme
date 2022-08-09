@@ -1,0 +1,189 @@
+.cms-element-text h1, .cms-element-text h2, .cms-element-text h3 {
+  text-transform: none;
+}
+
+.cms-element-text.has-vertical-alignment {
+  justify-content: center;
+}
+
+.container-main {
+  padding: 0;
+}
+
+.breadcrumb.cms-breadcrumb {
+  margin-bottom: 0 !important;
+}
+
+.cms-element-text {
+  h1, h2, h3 {
+    text-transform: uppercase;
+  }
+}
+
+.info-bar {
+  background-color: $sw-color-brand-secondary;
+  text-align: center;
+  color: white;
+  padding: 12px;
+}
+
+.header-logo-picture {
+  img {
+    max-height: 80px;
+  }
+}
+
+.main-navigation-menu {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-navigation-link {
+  color: #000;
+  padding-left: 0;
+  padding-right: 32px;
+  text-transform: uppercase;
+}
+
+.main-navigation-link.active {
+  color: #000;
+  font-weight: normal;
+}
+
+.icon {
+  color: #000;
+}
+
+.awards {
+  padding: 100px 0;
+  .cms-element-image {
+    display: flex;
+    justify-content: center;
+    img {
+      max-width: 120px;
+    }
+  }
+}
+
+.breweries {
+  .cms-element-image {
+    display: flex;
+    justify-content: center;
+    img {
+      max-width: 120px;
+    }
+  }
+}
+
+.product-box {
+  box-shadow: 0px 5px 15px rgb(0 0 0 / 10%);
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+  .product-variant-characteristics {
+    display: none;
+  }
+  .product-price-unit {
+    display: none;
+  }
+  .product-cheapest-price {
+    display: none;
+  }
+
+  .btn-buy {
+    display: block;
+    width: auto;
+    margin: 0 auto;
+    padding: 5px 20px;
+    border-radius: 10px;
+  }
+  .product-info {
+    text-align: center;
+  }
+}
+
+.beermoments {
+  padding: 50px 0;
+  h2 {
+    margin-bottom: 50px;
+  }
+  .moments-box {
+    height: 280px;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    overflow: hidden;
+
+    .layer {
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0,0,0,0.4);
+      display: flex;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -ms-flex-align: center;
+      align-items: center;
+      transition: all 0.2s ease;
+      &:hover {
+        background-color: rgba(0,0,0,0.6);
+      }
+    }
+
+    h3 {
+      color: white;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.blog {
+  .image-text-gallery-card {
+    border-radius: 10px;
+    box-shadow: none;
+    overflow: hidden;
+    transition: all 0.2s ease;
+
+    .cms-element-image {
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    &:hover {
+      box-shadow: 0px 4px 31px rgba(0, 0, 0, 0.1);
+      .cms-element-image {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+}
+
+.footer-main {
+  /* border-top: 1px solid #bcc1c7; */
+  background: #232325;
+  color: white;
+  a {
+    color: white;
+  }
+}
+
+.footer-bottom {
+  background: #232325;
+}
+
+.btn-primary, .address-editor-select:not(.collapsed), .address-editor-edit:not(.collapsed), .address-editor-create:not(.collapsed), .cms-element-rhweb-newsletter .rhweb-newsletter-input-fields button {
+  color: white !important;
+}
+
+.beermoments-header {
+  .cms-block-container {
+    position: relative;
+    background-color: rgba(0,0,0,0.4);
+  }
+}
